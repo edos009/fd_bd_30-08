@@ -1,0 +1,25 @@
+{
+  "name": "fd_bd_30-08",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/edos009/fd_bd_30-08.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/edos009/fd_bd_30-08/issues"
+  },
+  "homepage": "https://github.com/edos009/fd_bd_30-08#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "pg": "^8.8.0"
+  }
+}
