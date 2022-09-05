@@ -1,49 +1,55 @@
 DROP TABLE IF EXISTS "produts_in_order";
 DROP TABLE IF EXISTS "orders";
 DROP TABLE IF EXISTS "users";
-DROP TABLE IF EXISTS "producs";
+DROP TABLE IF EXISTS "products";
 CREATE TABLE "users"(
   "id" SERIAL PRIMARY KEY,
   "firstName" VARCHAR(64) NOT NULL CHECK ("firstName" != ''),
   "lastName" VARCHAR(64) NOT NULL CHECK ("lastName" != ''),
   "email" VARCHAR(128) NOT NULL CHECK ("email" != '') CONSTRAINT "uniqueEmail" UNIQUE,
   "isMale" BOOLEAN NOT NULL,
-  "birthday" DATE NOT NULL CHECK ("birthday" <= current_date)
+  "birthday" DATE NOT NULL CHECK ("birthday" <= current_date),
+  "height" NUMERIC(3,2) NOT NULL CHECK("height" >= 1.3 AND "height" <= 2.3)
 );
 INSERT INTO "users"(
     "firstName",
     "lastName",
     "email",
     "isMale",
-    "birthday"
+    "birthday",
+    "height"
   )
 VALUES (
     'Ed',
     'Tiutiunnik',
     'ed@gmail.com',
     true,
-    '1996-05-27'
+    '1996-05-27',
+    1.76
   ),
   (
     'Ivan',
     'Sobol',
     'ivan@gmail.com',
     true,
-    '1996-03-25'
+    '1996-03-25',
+    1.74
   ),
   (
     'Valeria',
     'Pashkova',
     'lera@gmail.com',
     false,
-    '1997-09-25'
+    '1997-09-25',
+    1.65
   ),
   (
     'Tim',
     'Pashkova',
     'tim@gmail.com',
     true,
-    '1997-08-23'
+    '1997-08-23',
+    1.76
   );
 CREATE TABLE "products"(
   "id" SERIAL PRIMARY KEY,
@@ -77,7 +83,7 @@ CREATE TABLE "produts_in_order"(
   "productId" INT REFERENCES "products"("id"),
   "amount" INT CHECK ("amount" > 0),
   PRIMARY KEY ("orderId", "productId")
-)
+);
 INSERT INTO "produts_in_order"("orderId", "productId", "amount")
 VALUES (1, 1, 2),
   (1, 3, 1),

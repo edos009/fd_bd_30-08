@@ -5,9 +5,11 @@ const http = axios.create({
   baseURL: "https://randomuser.me/api/",
 });
 const loadUser = async () => {
-  const {data: {results}} = await http.get('?results=100&nat=gb&seed=abc&page=3');
+  const {
+    data: { results },
+  } = await http.get("?results=100&nat=gb&seed=bca&page=5");
   return results;
-}
+};
 
 const config = {
   user: "postgres",
@@ -17,7 +19,7 @@ const config = {
   port: 5432,
 };
 
-const apUsers = (users) => {
+const mapUsers = (users) => {
   return users
     .map(
       ({ name: { first, last }, email, gender, dob: { date } }) => `(
@@ -25,11 +27,12 @@ const apUsers = (users) => {
     '${last}',
     '${email}',
     '${gender === "male"}',
-    '${date}'
+    '${date}',
+    '${(Math.random() + 1.3).toFixed(2)}'
   )`
     )
     .join(",");
-}
+};
 
 const client = new Client(config);
 
@@ -40,9 +43,10 @@ const start = async () => {
     "lastName",
     "email",
     "isMale",
-    "birthday"
+    "birthday",
+    "height"
   )
-VALUES ${apUsers(await loadUser())}`);
+VALUES ${mapUsers(await loadUser())}`);
   await client.end();
 };
 
